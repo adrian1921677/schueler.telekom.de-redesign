@@ -42,13 +42,28 @@ const Dashboard = () => {
   const getStatusColor = (status: Application['status']) => {
     switch (status) {
       case 'Zusage':
-        return 'bg-green-100 text-green-800 border-green-200'
+        return 'bg-green-100 text-green-900 border-green-300 font-semibold'
       case 'Absage':
-        return 'bg-red-100 text-red-800 border-red-200'
+        return 'bg-red-100 text-red-900 border-red-300 font-semibold'
       case 'In Bearbeitung':
-        return 'bg-blue-100 text-blue-800 border-blue-200'
+        return 'bg-blue-100 text-blue-900 border-blue-300 font-semibold'
       default:
-        return 'bg-gray-100 text-gray-800 border-gray-200'
+        return 'bg-gray-100 text-gray-900 border-gray-300 font-semibold'
+    }
+  }
+
+  const getStatusTooltip = (status: Application['status']) => {
+    switch (status) {
+      case 'Zusage':
+        return 'Ihre Bewerbung wurde angenommen. Sie erhalten in Kürze weitere Informationen.'
+      case 'Absage':
+        return 'Ihre Bewerbung wurde leider nicht berücksichtigt. Sie können sich gerne auf andere Stellen bewerben.'
+      case 'In Bearbeitung':
+        return 'Ihre Bewerbung wird aktuell geprüft. Sie werden über den weiteren Verlauf informiert.'
+      case 'Bewerbung eingegangen':
+        return 'Ihre Bewerbung wurde erfolgreich eingereicht und wird in Kürze bearbeitet.'
+      default:
+        return ''
     }
   }
 
@@ -93,23 +108,27 @@ const Dashboard = () => {
               </p>
               
               <div className="space-y-3">
+                <div className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">
+                  Kontoverwaltung
+                </div>
                 <button
                   onClick={() => navigate('/profile')}
-                  className="w-full flex items-center text-sm text-telekom-magenta hover:text-telekom-magenta-dark transition-colors group"
+                  className="w-full flex items-center text-sm text-telekom-magenta hover:text-telekom-magenta-dark transition-colors group pl-2"
                 >
                   <svg className="w-4 h-4 mr-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                   </svg>
                   Bewerber-Profil
                 </button>
                 <button
                   onClick={() => navigate('/settings')}
-                  className="w-full flex items-center text-sm text-telekom-magenta hover:text-telekom-magenta-dark transition-colors group"
+                  className="w-full flex items-center text-sm text-telekom-magenta hover:text-telekom-magenta-dark transition-colors group pl-2"
                 >
                   <svg className="w-4 h-4 mr-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                   </svg>
-                  persönliche Einstellungen
+                  Einstellungen
                 </button>
                 <button
                   onClick={handleLogout}
@@ -145,13 +164,14 @@ const Dashboard = () => {
           <main className="flex-1">
             {/* Welcome Message */}
             <div className="bg-gradient-to-r from-telekom-gray-light to-white rounded-lg p-6 mb-6 shadow-sm">
-              <h2 className="text-2xl font-bold text-telekom-gray mb-3">
+              <h2 className="text-2xl font-bold text-telekom-gray mb-2">
                 Guten Tag, {user?.name || 'Test Benutzer'}!
               </h2>
+              <h3 className="text-xl font-semibold text-telekom-gray mb-3">
+                Ihr Bewerbungs-Dashboard
+              </h3>
               <p className="text-gray-700 leading-relaxed">
-                In Ihrem persönlichen Bewerbungsbereich erhalten Sie alle Informationen zu Ihrer Bewerbung bei der Deutschen Telekom. 
-                Bewerben Sie sich online, checken Sie den Stand Ihrer Bewerbung und stellen Sie zusätzliche Informationen zur Verfügung. 
-                Wir wünschen Ihnen viel Erfolg! Ihr Team Telekom Ausbildung.
+                Verwalten Sie Ihre Bewerbungen, prüfen Sie den aktuellen Status und stellen Sie zusätzliche Informationen bereit.
               </p>
             </div>
 
@@ -181,7 +201,7 @@ const Dashboard = () => {
                         Abgesendet am
                       </th>
                       <th className="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                        Aktionen
+                        Mehr Infos
                       </th>
                     </tr>
                   </thead>
@@ -198,15 +218,26 @@ const Dashboard = () => {
                           {app.beruf}
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap">
-                          <span className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold border ${getStatusColor(app.status)}`}>
-                            {app.status}
-                          </span>
+                          <div className="relative group">
+                            <span className={`inline-flex items-center px-3 py-1 rounded-full text-xs border ${getStatusColor(app.status)} cursor-help`}>
+                              {app.status}
+                              <svg className="w-3 h-3 ml-1.5 opacity-70" fill="currentColor" viewBox="0 0 20 20">
+                                <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z" clipRule="evenodd" />
+                              </svg>
+                            </span>
+                            <div className="absolute left-0 bottom-full mb-2 hidden group-hover:block z-10">
+                              <div className="bg-gray-900 text-white text-xs rounded-lg py-2 px-3 shadow-lg max-w-xs">
+                                {getStatusTooltip(app.status)}
+                                <div className="absolute top-full left-4 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-900"></div>
+                              </div>
+                            </div>
+                          </div>
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
                           {app.abgesendetAm}
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm">
-                          <button className="text-telekom-magenta hover:text-telekom-magenta-dark font-medium">
+                          <button className="text-telekom-magenta hover:text-telekom-magenta-dark font-semibold underline decoration-2 underline-offset-2 hover:decoration-telekom-magenta-dark transition-colors">
                             Details
                           </button>
                         </td>
@@ -219,13 +250,13 @@ const Dashboard = () => {
 
             {/* Quick Actions */}
             <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
-              <button className="bg-telekom-magenta text-white px-6 py-4 rounded-lg font-semibold hover:bg-telekom-magenta-dark transition-colors shadow-md flex items-center justify-center">
+              <button className="bg-white border-2 border-telekom-magenta text-telekom-magenta px-6 py-4 rounded-lg font-semibold hover:bg-telekom-gray-light transition-colors shadow-md flex items-center justify-center">
                 <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
                 </svg>
                 Neue Bewerbung erstellen
               </button>
-              <button className="bg-white border-2 border-telekom-magenta text-telekom-magenta px-6 py-4 rounded-lg font-semibold hover:bg-telekom-gray-light transition-colors shadow-md flex items-center justify-center">
+              <button className="bg-telekom-magenta text-white px-6 py-4 rounded-lg font-semibold hover:bg-telekom-magenta-dark transition-colors shadow-lg flex items-center justify-center transform hover:scale-105 transition-transform">
                 <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                 </svg>
@@ -247,14 +278,18 @@ const Dashboard = () => {
                 className="h-8 w-auto mr-4"
               />
             </div>
-            <div className="flex flex-wrap justify-center gap-4 text-sm">
+            <div className="flex flex-wrap justify-center gap-3 text-sm">
               <a href="#" className="hover:text-telekom-magenta transition-colors">Hilfe</a>
+              <span className="text-gray-500">|</span>
               <a href="#" className="hover:text-telekom-magenta transition-colors">Impressum</a>
+              <span className="text-gray-500">|</span>
               <a href="#" className="hover:text-telekom-magenta transition-colors">Haftungsausschluss</a>
+              <span className="text-gray-500">|</span>
               <a href="#" className="hover:text-telekom-magenta transition-colors flex items-center">
                 Datenschutz
                 <span className="ml-1 w-4 h-4 bg-telekom-magenta rounded flex items-center justify-center text-xs">!</span>
               </a>
+              <span className="text-gray-500">|</span>
               <a href="#" className="hover:text-telekom-magenta transition-colors">Hotline</a>
             </div>
             <div className="text-sm mt-4 md:mt-0">
