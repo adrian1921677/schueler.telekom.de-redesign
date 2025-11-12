@@ -4,6 +4,7 @@ import LoginForm from './components/LoginForm'
 import RegisterForm from './components/RegisterForm'
 import Dashboard from './components/Dashboard'
 import Profile from './components/Profile'
+import ApplicationWizard from './components/ApplicationWizard'
 import ProtectedRoute from './components/ProtectedRoute'
 
 function App() {
@@ -26,6 +27,14 @@ function App() {
             element={
               <ProtectedRoute>
                 <Profile />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/application/new"
+            element={
+              <ProtectedRoute>
+                <ApplicationWizard />
               </ProtectedRoute>
             }
           />

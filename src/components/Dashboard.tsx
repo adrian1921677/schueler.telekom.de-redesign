@@ -275,7 +275,10 @@ const Dashboard = () => {
 
             {/* Quick Actions */}
             <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
-              <button className="bg-white border-2 border-telekom-magenta text-telekom-magenta px-6 py-4 rounded-lg font-semibold hover:bg-telekom-gray-light transition-colors shadow-md flex items-center justify-center">
+              <button 
+                onClick={() => navigate('/application/new')}
+                className="bg-white border-2 border-telekom-magenta text-telekom-magenta px-6 py-4 rounded-lg font-semibold hover:bg-telekom-gray-light transition-colors shadow-md flex items-center justify-center"
+              >
                 <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
                 </svg>
