@@ -14,6 +14,7 @@ export default {
         'telekom-magenta-dark': '#B8005C',
         'telekom-gray': '#323232',
         'telekom-gray-light': '#F5F5F5',
+        'telekom-gray-dark': '#1a1a1a',
       },
     },
   },

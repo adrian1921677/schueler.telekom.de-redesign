@@ -1,10 +1,29 @@
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
+import { AuthProvider } from './context/AuthContext'
 import LoginForm from './components/LoginForm'
+import RegisterForm from './components/RegisterForm'
+import Dashboard from './components/Dashboard'
+import ProtectedRoute from './components/ProtectedRoute'
 
 function App() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-telekom-gray-light to-white flex items-center justify-center p-4">
-      <LoginForm />
-    </div>
+    <AuthProvider>
+      <Router>
+        <Routes>
+          <Route path="/" element={<LoginForm />} />
+          <Route path="/register" element={<RegisterForm />} />
+          <Route
+            path="/dashboard"
+            element={
+              <ProtectedRoute>
+                <Dashboard />
+              </ProtectedRoute>
+            }
+          />
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Routes>
+      </Router>
+    </AuthProvider>
   )
 }
 

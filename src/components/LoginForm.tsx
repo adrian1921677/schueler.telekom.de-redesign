@@ -1,4 +1,6 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { useAuth } from '../context/AuthContext'
 import logo from '../assets/dl-telekom-logo-01.jpg'
 
 const LoginForm = () => {
@@ -6,22 +8,33 @@ const LoginForm = () => {
   const [password, setPassword] = useState('')
   const [showPassword, setShowPassword] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
+  const [error, setError] = useState('')
+  const navigate = useNavigate()
+  const { login } = useAuth()
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    setError('')
     setIsLoading(true)
     
     // Simuliere Login-Request
-    await new Promise(resolve => setTimeout(resolve, 1500))
+    await new Promise(resolve => setTimeout(resolve, 800))
     
-    console.log('Login attempt:', { email })
+    const success = login(email, password)
+    
+    if (success) {
+      navigate('/dashboard')
+    } else {
+      setError('Ungültige Anmeldedaten. Bitte verwenden Sie: test / test')
+    }
+    
     setIsLoading(false)
-    // Hier würde die eigentliche Login-Logik stehen
   }
 
   return (
-    <div className="w-full max-w-md">
-      <div className="bg-white rounded-2xl shadow-xl p-8 md:p-10">
+    <div className="min-h-screen bg-gradient-to-br from-telekom-gray-light to-white flex items-center justify-center p-4">
+      <div className="w-full max-w-md">
+        <div className="bg-white rounded-2xl shadow-xl p-8 md:p-10">
         {/* Logo */}
         <div className="flex justify-center mb-8">
           <img 
@@ -34,12 +47,19 @@ const LoginForm = () => {
         {/* Header */}
         <div className="text-center mb-8">
           <h1 className="text-3xl font-bold text-telekom-gray mb-2">
-            Azubi Login
+            Willkommen!
           </h1>
           <p className="text-gray-600 text-sm">
             Bitte melden Sie sich mit Ihren Zugangsdaten an
           </p>
         </div>
+
+        {/* Error Message */}
+        {error && (
+          <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded-lg text-red-700 text-sm">
+            {error}
+          </div>
+        )}
 
         {/* Login Form */}
         <form onSubmit={handleSubmit} className="space-y-6">
@@ -135,6 +155,15 @@ const LoginForm = () => {
               'Anmelden'
             )}
           </button>
+
+          {/* Registrieren Button */}
+          <button
+            type="button"
+            onClick={() => navigate('/register')}
+            className="w-full bg-white border-2 border-telekom-magenta text-telekom-magenta py-3 px-4 rounded-lg font-medium hover:bg-telekom-gray-light focus:outline-none focus:ring-2 focus:ring-telekom-magenta focus:ring-offset-2 transition-all duration-200"
+          >
+            Registrieren
+          </button>
         </form>
 
         {/* Footer */}
@@ -146,11 +175,12 @@ const LoginForm = () => {
             </a>
           </p>
         </div>
-      </div>
+        </div>
 
-      {/* Additional Info */}
-      <div className="mt-6 text-center text-sm text-gray-600">
-        <p>© 2024 Deutsche Telekom AG</p>
+        {/* Additional Info */}
+        <div className="mt-6 text-center text-sm text-gray-600">
+          <p>© 2025 Deutsche Telekom AG</p>
+        </div>
       </div>
     </div>
   )
