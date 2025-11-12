@@ -211,7 +211,7 @@ const ApplicationWizard = () => {
                   }`}>
                     {currentStep > step.number ? '✓' : step.number}
                   </div>
-                  <span className={`mt-2 text-xs font-medium ${
+                  <span className={`mt-2 text-xs font-medium text-center leading-tight ${
                     currentStep === step.number ? 'text-telekom-magenta' : 'text-gray-600'
                   }`}>
                     {step.title}
