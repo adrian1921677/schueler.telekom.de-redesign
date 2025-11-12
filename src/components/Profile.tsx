@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useAuth } from '../context/AuthContext'
 import { useNavigate } from 'react-router-dom'
 import logo from '../assets/dl-telekom-logo-01.jpg'
+import Toast from './Toast'
 
 interface ProfileData {
   // Persönliche Daten
@@ -67,13 +68,14 @@ const Profile = () => {
   const [newQualification, setNewQualification] = useState('')
   const [activeTab, setActiveTab] = useState<'personal' | 'interests' | 'education' | 'documents' | 'preferences'>('personal')
   const [isSaving, setIsSaving] = useState(false)
+  const [showToast, setShowToast] = useState(false)
 
   const handleSave = async () => {
     setIsSaving(true)
     // Simuliere Speichern
     await new Promise(resolve => setTimeout(resolve, 1000))
     setIsSaving(false)
-    alert('Profil erfolgreich gespeichert!')
+    setShowToast(true)
   }
 
   const addInterest = () => {
@@ -667,6 +669,16 @@ const Profile = () => {
           </div>
         </div>
       </footer>
+
+      {/* Toast Notification */}
+      {showToast && (
+        <Toast
+          message="Daten gespeichert!"
+          type="success"
+          onClose={() => setShowToast(false)}
+          duration={3000}
+        />
+      )}
     </div>
   )
 }
