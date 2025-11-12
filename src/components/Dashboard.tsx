@@ -55,15 +55,30 @@ const Dashboard = () => {
   const getStatusTooltip = (status: Application['status']) => {
     switch (status) {
       case 'Zusage':
-        return 'Ihre Bewerbung wurde angenommen. Sie erhalten in Kürze weitere Informationen.'
+        return {
+          title: 'Status: Zusage',
+          description: 'Ihre Bewerbung wurde erfolgreich angenommen! Sie erhalten in Kürze eine offizielle Zusage per E-Mail mit allen weiteren Informationen zu den nächsten Schritten, wie Vertragsunterlagen und Starttermin.'
+        }
       case 'Absage':
-        return 'Ihre Bewerbung wurde leider nicht berücksichtigt. Sie können sich gerne auf andere Stellen bewerben.'
+        return {
+          title: 'Status: Absage',
+          description: 'Ihre Bewerbung wurde leider nicht berücksichtigt. Dies bedeutet nicht, dass Sie sich nicht für andere Stellen bei der Telekom bewerben können. Wir ermutigen Sie, sich auf passende Positionen zu bewerben, die besser zu Ihrem Profil passen.'
+        }
       case 'In Bearbeitung':
-        return 'Ihre Bewerbung wird aktuell geprüft. Sie werden über den weiteren Verlauf informiert.'
+        return {
+          title: 'Status: In Bearbeitung',
+          description: 'Ihre Bewerbung wird aktuell von unserer Personalabteilung geprüft. Dieser Prozess umfasst die Sichtung Ihrer Unterlagen, die Prüfung Ihrer Qualifikationen und möglicherweise erste Gespräche. Sie werden über jeden weiteren Schritt per E-Mail informiert. Die Bearbeitung kann 2–4 Wochen dauern.'
+        }
       case 'Bewerbung eingegangen':
-        return 'Ihre Bewerbung wurde erfolgreich eingereicht und wird in Kürze bearbeitet.'
+        return {
+          title: 'Status: Bewerbung eingegangen',
+          description: 'Ihre Unterlagen wurden erfolgreich in unser System übernommen. Sie erhalten in Kürze eine Eingangsbestätigung per E-Mail. Die Bearbeitung dauert in der Regel 1–2 Wochen. Bitte haben Sie etwas Geduld, wir melden uns bei Ihnen.'
+        }
       default:
-        return ''
+        return {
+          title: '',
+          description: ''
+        }
     }
   }
 
@@ -221,14 +236,19 @@ const Dashboard = () => {
                           <div className="relative group">
                             <span className={`inline-flex items-center px-3 py-1 rounded-full text-xs border ${getStatusColor(app.status)} cursor-help`}>
                               {app.status}
-                              <svg className="w-3 h-3 ml-1.5 opacity-70" fill="currentColor" viewBox="0 0 20 20">
+                              <svg className="w-3.5 h-3.5 ml-1.5 opacity-70" fill="currentColor" viewBox="0 0 20 20">
                                 <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z" clipRule="evenodd" />
                               </svg>
                             </span>
-                            <div className="absolute left-0 bottom-full mb-2 hidden group-hover:block z-10">
-                              <div className="bg-gray-900 text-white text-xs rounded-lg py-2 px-3 shadow-lg max-w-xs">
-                                {getStatusTooltip(app.status)}
-                                <div className="absolute top-full left-4 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-900"></div>
+                            <div className="absolute left-0 bottom-full mb-2 hidden group-hover:block z-50 w-80">
+                              <div className="bg-gray-900 text-white text-sm rounded-lg py-3 px-4 shadow-xl">
+                                <div className="font-semibold mb-1 text-telekom-magenta">
+                                  {getStatusTooltip(app.status).title}
+                                </div>
+                                <div className="text-gray-200 leading-relaxed">
+                                  {getStatusTooltip(app.status).description}
+                                </div>
+                                <div className="absolute top-full left-6 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-900"></div>
                               </div>
                             </div>
                           </div>
