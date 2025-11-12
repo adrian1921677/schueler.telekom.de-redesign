@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
 import logo from '../assets/dl-telekom-logo-01.jpg'
+import RocketAnimation from './RocketAnimation'
 
 interface WizardData {
   // Stufe 1: Stelle auswählen
@@ -55,6 +56,8 @@ const ApplicationWizard = () => {
   })
 
   const [errors, setErrors] = useState<Record<string, string>>({})
+  const [showRocketAnimation, setShowRocketAnimation] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false)
 
   // Beispiel-Stellen
   const availablePositions = [
@@ -139,9 +142,15 @@ const ApplicationWizard = () => {
   }
 
   const handleSubmit = () => {
+    setIsSubmitting(true)
+    setShowRocketAnimation(true)
     // Hier würde die Bewerbung abgesendet werden
     console.log('Bewerbung abgesendet:', wizardData)
-    alert('Bewerbung erfolgreich abgesendet!')
+  }
+
+  const handleAnimationComplete = () => {
+    setShowRocketAnimation(false)
+    setIsSubmitting(false)
     navigate('/dashboard')
   }
 
@@ -620,13 +629,19 @@ const ApplicationWizard = () => {
           ) : (
             <button
               onClick={handleSubmit}
-              className="px-6 py-3 bg-telekom-magenta text-white rounded-lg hover:bg-telekom-magenta-dark transition-colors font-semibold"
+              disabled={isSubmitting}
+              className="relative px-6 py-3 bg-telekom-magenta text-white rounded-lg hover:bg-telekom-magenta-dark transition-colors font-semibold disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              Bewerbung senden
+              {isSubmitting ? 'Wird gesendet...' : 'Bewerbung senden'}
             </button>
           )}
         </div>
       </div>
+
+      {/* Rocket Animation */}
+      {showRocketAnimation && (
+        <RocketAnimation onComplete={handleAnimationComplete} />
+      )}
 
       {/* Footer */}
       <footer className="mt-auto bg-telekom-gray text-white">
