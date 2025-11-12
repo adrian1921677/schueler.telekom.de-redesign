@@ -240,15 +240,15 @@ const Dashboard = () => {
                                 <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z" clipRule="evenodd" />
                               </svg>
                             </span>
-                            <div className="absolute left-0 bottom-full mb-2 hidden group-hover:block z-50 w-80">
-                              <div className="bg-gray-900 text-white text-sm rounded-lg py-3 px-4 shadow-xl">
-                                <div className="font-semibold mb-1 text-telekom-magenta">
+                            <div className="absolute left-1/2 -translate-x-1/2 bottom-full mb-2 hidden group-hover:block z-50 w-96 max-w-[90vw]">
+                              <div className="bg-gray-900 text-white text-base rounded-lg py-4 px-5 shadow-2xl">
+                                <div className="font-bold mb-2 text-telekom-magenta text-lg">
                                   {getStatusTooltip(app.status).title}
                                 </div>
-                                <div className="text-gray-200 leading-relaxed">
+                                <div className="text-gray-100 leading-relaxed text-sm">
                                   {getStatusTooltip(app.status).description}
                                 </div>
-                                <div className="absolute top-full left-6 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-900"></div>
+                                <div className="absolute top-full left-1/2 -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-900"></div>
                               </div>
                             </div>
                           </div>
