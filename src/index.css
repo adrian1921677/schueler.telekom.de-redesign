@@ -1,0 +1,50 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* TeleNeo Font Integration */
+/* Hinweis: Die TeleNeo-Schriftart ist proprietär und sollte von der Telekom Scale Design System CDN geladen werden */
+/* Fallback: Inter (ähnliche moderne Sans-Serif) wird verwendet, bis TeleNeo verfügbar ist */
+
+@font-face {
+  font-family: 'TeleNeo';
+  src: url('https://cdn.telekom.de/fonts/TeleNeo/TeleNeo-Regular.woff2') format('woff2'),
+       url('https://cdn.telekom.de/fonts/TeleNeo/TeleNeo-Regular.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'TeleNeo';
+  src: url('https://cdn.telekom.de/fonts/TeleNeo/TeleNeo-Medium.woff2') format('woff2'),
+       url('https://cdn.telekom.de/fonts/TeleNeo/TeleNeo-Medium.woff') format('woff');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'TeleNeo';
+  src: url('https://cdn.telekom.de/fonts/TeleNeo/TeleNeo-Bold.woff2') format('woff2'),
+       url('https://cdn.telekom.de/fonts/TeleNeo/TeleNeo-Bold.woff') format('woff');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Fallback-Schriftart für den Fall, dass TeleNeo nicht geladen werden kann */
+@font-face {
+  font-family: 'TeleNeo';
+  src: local('Inter'), local('Arial');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@layer base {
+  body {
+    @apply font-telekom antialiased;
+  }
+}
+
