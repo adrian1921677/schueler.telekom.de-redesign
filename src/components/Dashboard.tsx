@@ -52,35 +52,6 @@ const Dashboard = () => {
     }
   }
 
-  const getStatusTooltip = (status: Application['status']) => {
-    switch (status) {
-      case 'Zusage':
-        return {
-          title: 'Status: Zusage',
-          description: 'Ihre Bewerbung wurde erfolgreich angenommen! Sie erhalten in Kürze eine offizielle Zusage per E-Mail mit allen weiteren Informationen zu den nächsten Schritten, wie Vertragsunterlagen und Starttermin.'
-        }
-      case 'Absage':
-        return {
-          title: 'Status: Absage',
-          description: 'Ihre Bewerbung wurde leider nicht berücksichtigt. Dies bedeutet nicht, dass Sie sich nicht für andere Stellen bei der Telekom bewerben können. Wir ermutigen Sie, sich auf passende Positionen zu bewerben, die besser zu Ihrem Profil passen.'
-        }
-      case 'In Bearbeitung':
-        return {
-          title: 'Status: In Bearbeitung',
-          description: 'Ihre Bewerbung wird aktuell von unserer Personalabteilung geprüft. Dieser Prozess umfasst die Sichtung Ihrer Unterlagen, die Prüfung Ihrer Qualifikationen und möglicherweise erste Gespräche. Sie werden über jeden weiteren Schritt per E-Mail informiert. Die Bearbeitung kann 2–4 Wochen dauern.'
-        }
-      case 'Bewerbung eingegangen':
-        return {
-          title: 'Status: Bewerbung eingegangen',
-          description: 'Ihre Unterlagen wurden erfolgreich in unser System übernommen. Sie erhalten in Kürze eine Eingangsbestätigung per E-Mail. Die Bearbeitung dauert in der Regel 1–2 Wochen. Bitte haben Sie etwas Geduld, wir melden uns bei Ihnen.'
-        }
-      default:
-        return {
-          title: '',
-          description: ''
-        }
-    }
-  }
 
   const handleLogout = () => {
     logout()
@@ -182,10 +153,60 @@ const Dashboard = () => {
               <h2 className="text-2xl font-bold text-telekom-gray mb-2">
                 Guten Tag, {user?.name || 'Test Benutzer'}!
               </h2>
-              <h3 className="text-xl font-semibold text-telekom-gray mb-3">
+              <h3 className="text-xl font-semibold text-telekom-gray mb-4">
                 Ihr Bewerbungs-Dashboard
               </h3>
-              <p className="text-gray-700 leading-relaxed">
+              
+              {/* Status-Hinweis */}
+              {applications.some(app => app.status === 'Absage') && (
+                <div className="mb-4 p-4 bg-red-50 border-l-4 border-red-500 rounded-r-lg">
+                  <div className="flex items-start">
+                    <svg className="w-6 h-6 text-red-600 mr-3 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                    </svg>
+                    <div className="flex-1">
+                      <h4 className="font-bold text-red-900 mb-1">Status: Absage</h4>
+                      <p className="text-red-800 text-sm leading-relaxed">
+                        Eine Ihrer Bewerbungen wurde leider nicht berücksichtigt. Dies bedeutet nicht, dass Sie sich nicht für andere Stellen bei der Telekom bewerben können. Wir ermutigen Sie, sich auf passende Positionen zu bewerben, die besser zu Ihrem Profil passen.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              )}
+              
+              {applications.some(app => app.status === 'In Bearbeitung') && !applications.some(app => app.status === 'Absage') && (
+                <div className="mb-4 p-4 bg-blue-50 border-l-4 border-blue-500 rounded-r-lg">
+                  <div className="flex items-start">
+                    <svg className="w-6 h-6 text-blue-600 mr-3 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <div className="flex-1">
+                      <h4 className="font-bold text-blue-900 mb-1">Status: In Bearbeitung</h4>
+                      <p className="text-blue-800 text-sm leading-relaxed">
+                        Ihre Bewerbung wird aktuell von unserer Personalabteilung geprüft. Dieser Prozess umfasst die Sichtung Ihrer Unterlagen, die Prüfung Ihrer Qualifikationen und möglicherweise erste Gespräche. Sie werden über jeden weiteren Schritt per E-Mail informiert. Die Bearbeitung kann 2–4 Wochen dauern.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              )}
+              
+              {applications.every(app => app.status === 'Bewerbung eingegangen') && (
+                <div className="mb-4 p-4 bg-gray-50 border-l-4 border-gray-400 rounded-r-lg">
+                  <div className="flex items-start">
+                    <svg className="w-6 h-6 text-gray-600 mr-3 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <div className="flex-1">
+                      <h4 className="font-bold text-gray-900 mb-1">Status: Bewerbung eingegangen</h4>
+                      <p className="text-gray-800 text-sm leading-relaxed">
+                        Ihre Unterlagen wurden erfolgreich in unser System übernommen. Sie erhalten in Kürze eine Eingangsbestätigung per E-Mail. Die Bearbeitung dauert in der Regel 1–2 Wochen. Bitte haben Sie etwas Geduld, wir melden uns bei Ihnen.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              )}
+              
+              <p className="text-gray-700 leading-relaxed mt-4">
                 Verwalten Sie Ihre Bewerbungen, prüfen Sie den aktuellen Status und stellen Sie zusätzliche Informationen bereit.
               </p>
             </div>
@@ -233,24 +254,9 @@ const Dashboard = () => {
                           {app.beruf}
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap">
-                          <div className="relative group">
-                            <span className={`inline-flex items-center px-3 py-1 rounded-full text-xs border ${getStatusColor(app.status)} cursor-help`}>
-                              {app.status}
-                              <svg className="w-3.5 h-3.5 ml-1.5 opacity-70" fill="currentColor" viewBox="0 0 20 20">
-                                <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z" clipRule="evenodd" />
-                              </svg>
-                            </span>
-                            <div className="fixed top-20 right-4 hidden group-hover:block z-50 w-96 max-w-[calc(100vw-2rem)]">
-                              <div className="bg-gray-900 text-white text-base rounded-lg py-4 px-5 shadow-2xl border border-gray-700">
-                                <div className="font-bold mb-2 text-telekom-magenta text-lg">
-                                  {getStatusTooltip(app.status).title}
-                                </div>
-                                <div className="text-gray-100 leading-relaxed text-sm">
-                                  {getStatusTooltip(app.status).description}
-                                </div>
-                              </div>
-                            </div>
-                          </div>
+                          <span className={`inline-flex items-center px-3 py-1 rounded-full text-xs border ${getStatusColor(app.status)}`}>
+                            {app.status}
+                          </span>
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
                           {app.abgesendetAm}
