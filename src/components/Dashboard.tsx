@@ -58,7 +58,7 @@ const Dashboard = () => {
   }
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white flex flex-col">
       {/* Header mit Magenta Bar */}
       <div className="bg-telekom-magenta text-white">
         <div className="container mx-auto px-4 py-4">
@@ -79,7 +79,7 @@ const Dashboard = () => {
         </div>
       </div>
 
-      <div className="container mx-auto px-4 py-8">
+      <div className="container mx-auto px-4 py-8 flex-1">
         <div className="flex flex-col lg:flex-row gap-8">
           {/* Sidebar */}
           <aside className="lg:w-64 flex-shrink-0">
@@ -93,6 +93,15 @@ const Dashboard = () => {
               </p>
               
               <div className="space-y-3">
+                <button
+                  onClick={() => navigate('/profile')}
+                  className="w-full flex items-center text-sm text-telekom-magenta hover:text-telekom-magenta-dark transition-colors group"
+                >
+                  <svg className="w-4 h-4 mr-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  </svg>
+                  Bewerber-Profil
+                </button>
                 <button
                   onClick={() => navigate('/settings')}
                   className="w-full flex items-center text-sm text-telekom-magenta hover:text-telekom-magenta-dark transition-colors group"
@@ -228,7 +237,7 @@ const Dashboard = () => {
       </div>
 
       {/* Footer */}
-      <footer className="mt-12 bg-telekom-gray text-white">
+      <footer className="mt-auto bg-telekom-gray text-white">
         <div className="container mx-auto px-4 py-6">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <div className="flex items-center mb-4 md:mb-0">
