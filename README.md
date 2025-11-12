@@ -1,6 +1,9 @@
-# Telekom Azubi Login
+# Telekom Azubi/Studis ReDesign
 
-Eine moderne Login-Seite für Telekom-Azubis und Schüler, erstellt mit React, TypeScript, Vite und Tailwind CSS.
+Eine moderne Bewerbungsplattform für Telekom-Azubis und dual Studierende, erstellt mit React, TypeScript, Vite und Tailwind CSS.
+
+**Domain:** [telekom.abdullahu-adrian.de](https://telekom.abdullahu-adrian.de)  
+**Vercel:** [schueler-telekom-de-redesign.vercel.app](https://schueler-telekom-de-redesign.vercel.app)
 
 ## Features
 
@@ -10,6 +13,10 @@ Eine moderne Login-Seite für Telekom-Azubis und Schüler, erstellt mit React, T
 - ♿ Barrierefreie Implementierung
 - 🎯 TeleNeo Schriftart integriert
 - 🖼️ Telekom Logo eingebunden
+- 🚀 Vierstufiger Bewerbungs-Wizard
+- 📋 Bewerber-Profil-Verwaltung
+- 🎉 Raketen-Animation beim Absenden
+- 📊 Dashboard mit Bewerbungsübersicht
 
 ## Technologie-Stack
 
